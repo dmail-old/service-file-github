@@ -1,0 +1,13 @@
+{
+	"name": "@dmail/service-file-github",
+	"version": "0.0.1",
+	"license": "UNLICENSED",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/dmail/service-file-github"
+	},
+	"dependencies": {
+		"@dmail/rest": "git+https://github.com/dmail/rest",
+		"@dmail/service-http": "git+https://github.com/dmail/service-http"
+	}
+}
