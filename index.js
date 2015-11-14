@@ -38,7 +38,7 @@ var githubFileService = rest.createService({
 	},
 
 	fetchHttpRequest(httpRequest){
-		return httpService.requestHandler(httpRequest);
+		return httpService.transport(httpRequest);
 	},
 
 	/*
