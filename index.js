@@ -6,12 +6,6 @@ import httpService from './node_modules/@dmail/service-http/index.js';
 import replace from './lib/replace.js';
 import Base64 from './lib/base64.js';
 
-// comme on peut le voir avec status : 405 cette logique de méthode doit être factorisée
-// dans rest service handling
-// il faut un moyen asynchrone de définir si le service s'occupe de la requête
-// indépendant de la méthode
-// et une propriété methods: {} qui définit les méthodes acceptées
-
 var githubFileService = rest.createService({
 	name: 'file-github',
 	tokens: {}, // tokens to be authentified when requesting github (private repo or post method for instance)
@@ -124,22 +118,17 @@ var githubFileService = rest.createService({
 		return this.fetchHttpRequest(httpRequest);
 	},
 
-	requesthandler(request){
-		if( request.url.protocol === 'file-github:' ){
-			if( request.method === 'GET' ){
-				return this.get(request);
-			}
-			else if( request.method === 'POST' ){
-				return this.post(request);
-			}
-			else{
-				return {
-					status: 405,
-					headers: {
-						'allow': 'GET, POST'
-					}
-				};
-			}
+	match(request){
+		return request.url.protocol === 'file-github:';
+	},
+
+	methods: {
+		get(request){
+			return this.get(request);
+		},
+
+		post(request){
+			return this.post(request);
 		}
 	}
 });
